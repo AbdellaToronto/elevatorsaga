@@ -18,6 +18,7 @@
     <script type="text/javascript" src="libs/codemirror/mode/javascript/javascript.js"></script>
 
     <script type="text/javascript" src="libs/unobservable.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.js"></script>
 
     <script type="text/javascript" src="base.js"></script>
     <script type="text/javascript" src="movable.js"></script>
@@ -89,11 +90,12 @@
         var elevator = elevators[0]; // Let's use the first elevator
 
         // Whenever the elevator is idle (has no more queued destinations) ...
-        elevator.on("idle", function() {
+        Rx.Observable.fromEvent(elevator, 'idle')
+            .subscribe(() => {
             // let's go to all the floors (or did we forget one?)
             elevator.goToFloor(0);
             elevator.goToFloor(1);
-        });
+        })
     },
     update: function(dt, elevators, floors) {
         // We normally don't need to do anything here
