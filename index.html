@@ -91,7 +91,7 @@
         var elevator = elevators[0]; // Let's use the first elevator
 
         // Whenever the elevator is idle (has no more queued destinations) ...
-        Rx.Observable.fromEvent(elevator, 'idle')
+        rxjs.fromEvent(elevator, 'idle')
             .subscribe(() => {
             // let's go to all the floors (or did we forget one?)
             elevator.goToFloor(0);
